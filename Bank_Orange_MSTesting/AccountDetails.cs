@@ -46,6 +46,6 @@ namespace Bank_Orange
             CurrencyPosition = currencyPosition;
             IsSavingsAccount = isSavingsAccount;
             AccountIndex = accountIndex;
-        }             
+        }
     }
 }

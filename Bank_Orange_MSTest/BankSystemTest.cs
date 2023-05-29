@@ -1,75 +1,165 @@
-using Bank_Orange;
+﻿using Bank_Orange;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace Bank_Orange_MSTest
 {
     [TestClass]
     public class BankSystemTest
     {
-        //[TestMethod]
-        //public void TransfereBetweenUsers_ShouldReturnAPendingTransactionInQueue()
-        //{
-        //    //Arrange
-        //    BankSystem system = new BankSystem();
-        //    BankAccount bankAccount1 = new BankAccount();
-        //    BankAccount bankAccount2 = new BankAccount();
-        //    AccountDetails ac1 = new AccountDetails("AccountP1", 1000, "Kr", false, false, 0);
-        //    AccountDetails ac2 = new AccountDetails("AccountP2", 3000, "Kr", false, false, 0);
-        //    AccountDetails ac3 = new AccountDetails("AccountP12", 5000, "Kr", false, false, 1);
-        //    AccountDetails ac4 = new AccountDetails("AccountP22", 4000, "Kr", false, false, 1);
-        //    bankAccount1.BankAccountList.Add(ac1);
-        //    bankAccount2.BankAccountList.Add(ac2);
-        //    bankAccount1.BankAccountList.Add(ac3);
-        //    bankAccount2.BankAccountList.Add(ac4);
+        [TestMethod]
+        public void BorrowMoney_ShouldReturnMaxAmountToBorrow()
+        {
+            //Arrange
+            BankSystem system = new BankSystem();
+            BankAccount bankAccount1 = new BankAccount();
+            AccountDetails ac1 = new AccountDetails("AccountP1", 1000, "Kr", false, false, 0);
+            bankAccount1.BankAccountList.Add(ac1);
+            system.AccountDictionary.Add(0, bankAccount1);
+            system.InLoggedUserAccount = bankAccount1;
 
-        //    string name = "Adam";
-        //    string password = "12345";
-        //    string name2 = "Sam";
-        //    string password2 = "12BaD";
-        //    Customer cus = new Customer(name, password)
-        //    {
-        //        UserName = name,
-        //        Password = password
-        //    };
-        //    Customer cus2 = new Customer(name2, password2)
-        //    {
-        //        UserName = name2,
-        //        Password = password2
-        //    };
-        //    system.PersonDictionary.Add(0, cus);
-        //    system.PersonDictionary.Add(1, cus2);
-        //    system.AccountDictionary.Add(0, bankAccount1);
-        //    system.AccountDictionary.Add(1, bankAccount2);
+            //Act
+            var input = new StringReader("2000");
+            Console.SetIn(input);
 
-        //    var reciever = bankAccount2;
-        //    var money = 500;
-        //    var UserIndex = 0;
-        //    PendingTransactions pendingTransactions = new PendingTransactions(reciever, money, UserIndex);
-        //    system.InLoggedUserAccount = bankAccount1;
-        //    system.InLoggedUserIndex = 0;
+            var consoleOutPut = new StringWriter();
+            Console.SetOut(consoleOutPut);
 
-        //    CurrencyExchanges cx = new CurrencyExchanges(10, 10);
-        //    bankAccount1.currencyExchanges = cx;
-        //    bankAccount2.currencyExchanges = cx;
-        //    system.currencyExchanges = cx;
+            system.BorrowMoney();
+            var outPut = consoleOutPut.ToString();
 
-        //    //Act
-        //    var input = new StringReader("1\n1\n500");
-        //    Console.SetIn(input);
+            //Assert
+            StringAssert.Contains(outPut, "Max amount to borrow is 5.000,00 Kr");
+        }
 
-        //    var consoleOutPut = new StringWriter();
-        //    Console.SetOut(consoleOutPut);
+        [TestMethod]
+        public void BorrowMoney_ShouldReturnSomethingWentWrongMessage()
+        {
+            //Arrange
+            BankSystem system = new BankSystem();
+            BankAccount bankAccount1 = new BankAccount();
+            AccountDetails ac1 = new AccountDetails("AccountP1", 1000, "Kr", false, false, 0);
+            bankAccount1.BankAccountList.Add(ac1);
+            system.AccountDictionary.Add(0, bankAccount1);
+            system.InLoggedUserAccount = bankAccount1;
 
-        //    system.TransfereBetweenUsers();
-        //    var outPut = consoleOutPut.ToString();
+            //Act
+            var input = new StringReader("-500");
+            Console.SetIn(input);
 
-        //    //var expected = system.pendingTransactionsQueue.Peek();
+            var consoleOutPut = new StringWriter();
+            Console.SetOut(consoleOutPut);
 
-        //    //Assert
-        //    //Assert.Equals(expected, pendingTransactions);
-        //    Assert.IsTrue(outPut.Contains("[1]A: 500,00Kr"));
-        //}
+            system.BorrowMoney();
+            var outPut = consoleOutPut.ToString();
+
+            //Assert
+            StringAssert.Contains(outPut, "Something went wrong, please try again.");
+        }
+
+        [TestMethod]
+        public void BorrowMoney_ShouldReturnTheYearlyInterestAmount()
+        {
+            //Arrange
+            BankSystem system = new BankSystem();
+            BankAccount bankAccount1 = new BankAccount();
+            AccountDetails ac1 = new AccountDetails("AccountP1", 1000, "Kr", false, false, 0);
+            bankAccount1.BankAccountList.Add(ac1);
+            system.AccountDictionary.Add(0, bankAccount1);
+            system.InLoggedUserAccount = bankAccount1;
+
+            //Act
+            var input = new StringReader("2000");
+            Console.SetIn(input);
+
+            var consoleOutPut = new StringWriter();
+            Console.SetOut(consoleOutPut);
+
+            system.BorrowMoney();
+            var outPut = consoleOutPut.ToString();
+
+            //Assert
+            StringAssert.Contains(outPut, "Your yearly paid interest will be 70,00kr!");
+        }
+
+        [TestMethod]
+        public void BorrowMoney_ShouldReturnTransfereWasCanceledMessage()
+        {
+            //Arrange
+            BankSystem system = new BankSystem();
+            BankAccount bankAccount1 = new BankAccount();
+            AccountDetails ac1 = new AccountDetails("AccountP1", 1000, "Kr", false, false, 0);
+            bankAccount1.BankAccountList.Add(ac1);
+            system.AccountDictionary.Add(0, bankAccount1);
+            system.InLoggedUserAccount = bankAccount1;
+
+            //Act
+            var input = new StringReader("2000\n2");
+            Console.SetIn(input);
+
+            var consoleOutPut = new StringWriter();
+            Console.SetOut(consoleOutPut);
+
+            system.BorrowMoney();
+            var outPut = consoleOutPut.ToString();
+
+            //Assert
+            StringAssert.Contains(outPut, "Transfer was cancelled!");
+        }
+
+        [TestMethod]
+        public void BorrowMoney_ShouldReturnNotEligibleForThisLoanMessage()
+        {
+            //Arrange
+            BankSystem system = new BankSystem();
+            BankAccount bankAccount1 = new BankAccount();
+            AccountDetails ac1 = new AccountDetails("AccountP1", 1000, "Kr", false, false, 0);
+            bankAccount1.BankAccountList.Add(ac1);
+            system.AccountDictionary.Add(0, bankAccount1);
+            system.InLoggedUserAccount = bankAccount1;
+
+            //Act
+            var input = new StringReader("8000");
+            Console.SetIn(input);
+
+            var consoleOutPut = new StringWriter();
+            Console.SetOut(consoleOutPut);
+
+            system.BorrowMoney();
+            var outPut = consoleOutPut.ToString();
+
+            //Assert
+            StringAssert.Contains(outPut, "You are not eligible for this loan!");
+        }
+
+        [TestMethod]
+        public void BorrowMoney_ShouldReturnTransferCompleteMessage()
+        {
+            //Arrange
+            BankSystem system = new BankSystem();
+            BankAccount bankAccount1 = new BankAccount();
+            AccountDetails ac1 = new AccountDetails("AccountP1", 1000, "Kr", false, false, 0);
+            bankAccount1.BankAccountList.Add(ac1);
+            system.AccountDictionary.Add(0, bankAccount1);
+            system.InLoggedUserAccount = bankAccount1;
+
+            //Act
+            var input = new StringReader("4000\n1");
+            Console.SetIn(input);
+
+            var consoleOutPut = new StringWriter();
+            Console.SetOut(consoleOutPut);
+
+            system.BorrowMoney();
+            var outPut = consoleOutPut.ToString();
+
+            //Assert
+            StringAssert.Contains(outPut, "Transfer Complete!");
+        }
+
+        
     }
 }

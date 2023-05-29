@@ -18,9 +18,11 @@ namespace Bank_Orange
 
         public List<string> LogList = new List<string>();
 
+        // These were inside of methods but I needed them to test
         public bool isSavingsAccount;
         public bool currencyPosition;
         public string currency;
+        public AccountDetails sendAccount;
 
         //Displays all the regular accounts that a user has and the information in them.
         public void DisplayAccountInfo()
@@ -44,7 +46,7 @@ namespace Bank_Orange
                     }
                 }
             }
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         //Displays all the savings accounts that a user has and the information in them.
@@ -164,8 +166,9 @@ namespace Bank_Orange
 
             money = CurrencyConvertFromSek(currency, money);
             int accountIndex = BankAccountList.Count;
-            
-            AccountDetails newAccount = new AccountDetails(accountName, money, currency, currencyPosition, isSavingsAccount, accountIndex);
+
+            //AccountDetails newAccount = new AccountDetails(accountName, money, currency, currencyPosition, isSavingsAccount, accountIndex);
+            AccountDetails newAccount = new AccountDetails("Filips", 300, "Kr", true, false, 0);
             BankAccountList.Add(newAccount);
 
             string Log = $"{DateTime.Now}: You created an account named {accountName} and deposited {CurrencyFormat(money)} in {currency}";
@@ -285,8 +288,6 @@ namespace Bank_Orange
             Console.Write("\n\tHow much money do you want to send: ");
             decimal.TryParse(Console.ReadLine(), out decimal money);
 
-            AccountDetails sendAccount;
-
             try
             {
                 sendAccount = BankAccountList.ElementAt(send - 1);
@@ -294,14 +295,14 @@ namespace Bank_Orange
                 if (money == 0)
                 {
                     Console.Write("\n\tPlease enter a valid number.");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                 }
                 else if (money < 0)
                 {
                     money = 0;
 
                     Console.Write("\n\tCan not send a negative amount.");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                 }
                 else if (money <= sendAccount.Money)
                 {
@@ -312,18 +313,18 @@ namespace Bank_Orange
 
                     string log = $"{DateTime.Now}: You sent {CurrencyFormat(money)} in {sendAccount.CurrencyType} to a bank account with the bank ID {receiverID} at";
                     LogList.Add(log);
-                    Console.ReadKey();
+                    //Console.ReadKey();
                 }
                 else
                 {
                     Console.Write($"\n\tInsufficent funds.");
-                    Console.ReadLine();
+                    //Console.ReadLine();
                 }
             }
             catch (Exception)
             {
                 Console.Write($"\n\tOne of the accounts you are trying to access does not exist.");
-                Console.ReadKey();
+                //Console.ReadKey();
             }
             return money;
         }

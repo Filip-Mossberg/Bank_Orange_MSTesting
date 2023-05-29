@@ -306,7 +306,7 @@ namespace Bank_Orange
                     pendingTransactionsQueue.Enqueue(pendingTransactions);
                 }
             }
-            CustomerMenu();
+            //CustomerMenu();
         }
 
         //For testing the program.
