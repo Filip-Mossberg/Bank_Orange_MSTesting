@@ -27,7 +27,7 @@ Its important for customers to be able to add new bankaccounts. Errors here coul
 So what could go wrong here? 
 The errors that could accure here is that an wrong messages show up, money is not being removed from sending account and added to the reciever. 
 
-* Check so that correct error message is shown when the data is incorrect
+* Check so that the correct error message is shown when the data is incorrect
 * Make sure that the sender and reciever acoount exists
 * Transaction has been successful message when it goes threw
 * Check so that money is being removed from sender account (add money to reciever is not done here)
