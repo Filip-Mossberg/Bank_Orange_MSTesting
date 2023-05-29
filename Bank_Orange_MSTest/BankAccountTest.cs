@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Bank_Orange_MSTest
     public class BankAccountTest
     {
         [TestMethod]
+        [Category("AddNewBankAccount")]
         public void AddNewBankAccount_ShouldReturnIsSavingsAccountFalse()
         {
             //Arrange
@@ -31,6 +33,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("AddNewBankAccount")]
         public void AddNewBankAccount_ShouldReturnIsSavingsAccountFalseException()
         {
             //Arrange
@@ -49,6 +52,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("AddNewBankAccount")]
         public void AddNewBankAccount_ShouldReturnIsSavingsAccountTrue()
         {
             //Arrange
@@ -67,6 +71,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("AddNewBankAccount")]
         public void AddNewBankAccount_ShouldReturnCurrencyKrAndCurrencyPositionTrue()
         {
             //Arrange
@@ -86,6 +91,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("AddNewBankAccount")]
         public void AddNewBankAccount_ShouldReturnCurrencyDollarAndCurrencyPositionFalse()
         {
             //Arrange
@@ -107,6 +113,8 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("AddNewBankAccount")]
+
         public void AddNewBankAccount_ShouldReturnCurrencyEuroAndCurrencyPositionFalse()
         {
             //Arrange
@@ -128,6 +136,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("AddNewBankAccount")]
         public void AddNewBankAccount_ShouldReturnCurrencyKrAndCurrencyPositionTrueDefault()
         {
             //Arrange
@@ -147,6 +156,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("AddNewBankAccount")]
         public void AddNewBankAccount_ShouldFindAnAccoutDetailsObjectInBankAccountList()
         {
             //Arrange
@@ -166,6 +176,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("SendMoney")]
         public void SendMoney_ShouldReturnEnterValidNumberMessage()
         {
             //Arrange
@@ -190,6 +201,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("SendMoney")]
         public void SendMoney_ShouldReturnCanNotSendANegativeAmountMessage()
         {
             //Arrange
@@ -214,6 +226,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("SendMoney")]
         public void SendMoney_ShouldReturnInsufficientFundsMessage()
         {
             //Arrange
@@ -238,6 +251,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("SendMoney")]
         public void SendMoney_ShouldReturnAccountDoesNotExistMessage()
         {
             //Arrange
@@ -262,6 +276,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("SendMoney")]
         public void SendMoney_ShouldReturnTransactionHasBeenSuccessfulMessage()
         {
             //Arrange
@@ -286,6 +301,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("SendMoney")]
         public void SendMoney_ShouldReturnTrueThatMoneyHasBeenRemovedFromSederAccount()
         {
             //Arrange

@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 
@@ -11,6 +12,7 @@ namespace Bank_Orange_MSTest
     public class BankSystemTest
     {
         [TestMethod]
+        [Category("BorrowMoney")]
         public void BorrowMoney_ShouldReturnMaxAmountToBorrow()
         {
             //Arrange
@@ -36,6 +38,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("BorrowMoney")]
         public void BorrowMoney_ShouldReturnSomethingWentWrongMessage()
         {
             //Arrange
@@ -61,6 +64,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("BorrowMoney")]
         public void BorrowMoney_ShouldReturnTheYearlyInterestAmount()
         {
             //Arrange
@@ -86,6 +90,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("BorrowMoney")]
         public void BorrowMoney_ShouldReturnTransfereWasCanceledMessage()
         {
             //Arrange
@@ -111,6 +116,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("BorrowMoney")]
         public void BorrowMoney_ShouldReturnNotEligibleForThisLoanMessage()
         {
             //Arrange
@@ -136,6 +142,7 @@ namespace Bank_Orange_MSTest
         }
 
         [TestMethod]
+        [Category("BorrowMoney")]
         public void BorrowMoney_ShouldReturnTransferCompleteMessage()
         {
             //Arrange
